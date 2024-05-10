@@ -200,6 +200,14 @@ export class Remote {
       context,
     );
   }
+  resetTorrents(torrent_ids, callback, context) {
+    this.sendTorrentActionRequests(
+      'torrent-reset',
+      torrent_ids,
+      callback,
+      context,
+    );
+  }
 
   moveTorrents(torrent_ids, new_location, callback, context) {
     this.sendTorrentSetRequests(

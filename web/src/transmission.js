@@ -112,6 +112,9 @@ export class Transmission extends EventTarget {
         case 'remove-selected-torrents':
           this._removeSelectedTorrents(false);
           break;
+        case 'reset-selected-torrents':
+          this._resetTorrents(this._getSelectedTorrentIds());
+          break;
         case 'resume-selected-torrents':
           this._startSelectedTorrents(false);
           break;
@@ -873,6 +876,18 @@ TODO: fix this when notifications get fixed
     this.changeStatus = true;
     this.remote.stopTorrents(
       Transmission._getTorrentIds(torrents),
+      () => {
+        setTimeout(() => {
+          this.refreshTorrents();
+        }, 500);
+      },
+      this,
+    );
+  }
+  _resetTorrents(torrentsIDs) {
+    this.changeStatus = true;
+    this.remote.resetTorrents(
+      torrentsIDs,
       () => {
         setTimeout(() => {
           this.refreshTorrents();

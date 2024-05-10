@@ -239,6 +239,20 @@ char const* torrentStop(tr_session* session, tr_variant::Map const& args_in, tr_
     return nullptr;
 }
 
+char const* torrentReset(tr_session* session, tr_variant::Map const& args_in, tr_variant::Map& /*args_out*/)
+{
+    auto sources = std::vector<std::string_view>();
+
+    for (auto* tor : getTorrents(session, args_in))
+    {
+        //        sources.push_back(tor->source());
+        printf("AAA: %s\n", tor->source().c_str());
+        //        tr_torrentRemove(tor, true, nullptr, nullptr);
+    }
+
+    return nullptr;
+}
+
 char const* torrentRemove(tr_session* session, tr_variant::Map const& args_in, tr_variant::Map& /*args_out*/)
 {
     auto const delete_flag = args_in.value_if<bool>(TR_KEY_delete_local_data).value_or(false);
@@ -2070,7 +2084,7 @@ char const* sessionClose(tr_session* session, tr_variant::Map const& /*args_in*/
 
 using SyncHandler = char const* (*)(tr_session*, tr_variant::Map const&, tr_variant::Map&);
 
-auto constexpr SyncHandlers = std::array<std::pair<std::string_view, SyncHandler>, 20U>{ {
+auto constexpr SyncHandlers = std::array<std::pair<std::string_view, SyncHandler>, 21U>{ {
     { "free-space"sv, freeSpace },
     { "group-get"sv, groupGet },
     { "group-set"sv, groupSet },
@@ -2090,6 +2104,7 @@ auto constexpr SyncHandlers = std::array<std::pair<std::string_view, SyncHandler
     { "torrent-start"sv, torrentStart },
     { "torrent-start-now"sv, torrentStartNow },
     { "torrent-stop"sv, torrentStop },
+    { "torrent-reset"sv, torrentReset },
     { "torrent-verify"sv, torrentVerify },
 } };
 

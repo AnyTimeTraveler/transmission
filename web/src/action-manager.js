@@ -32,6 +32,10 @@ export class ActionManager extends EventTarget {
         text: 'Ask tracker for more peers',
       },
       'remove-selected-torrents': { enabled: false, text: 'Remove from list…' },
+      'reset-selected-torrents': {
+        enabled: false,
+        text: 'Reset',
+      },
       'resume-selected-torrents': {
         enabled: false,
         shortcut: 'R',
@@ -196,6 +200,7 @@ export class ActionManager extends EventTarget {
       'move-top',
       'move-up',
       'remove-selected-torrents',
+      'reset-selected-torrents',
       'show-inspector',
       'show-labels-dialog',
       'show-move-dialog',
